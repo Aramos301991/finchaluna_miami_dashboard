@@ -5,7 +5,6 @@ st.set_page_config(page_title="Dashboard Turístico Finca Luna Nueva Lodge Miami
 st.title("Dashboard Turístico: Expansión Finca Luna Nueva Lodge Miami")
 st.markdown("Visualización de datos clave para el análisis del mercado turístico y hospedaje en Miami.")
 
-# Lista de nombres de archivos y títulos para mostrar
 data_files = {
     "Demografía y Mercado": "Demografía y Mercado.csv",
     "Turismo y Hospedaje": "Turismo y Hospedaje.csv",
@@ -17,7 +16,6 @@ data_files = {
     "Permisos y Licencias": "Permisos y Licencias.csv"
 }
 
-# Mostrar cada archivo
 for title, filename in data_files.items():
     try:
         df = pd.read_csv(filename)

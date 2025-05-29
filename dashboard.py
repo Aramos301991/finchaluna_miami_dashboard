@@ -1,32 +1,34 @@
 import streamlit as st
 import pandas as pd
+import os
 
 # Configuración de la página
 st.set_page_config(page_title="Dashboard Turístico Finca Luna Nueva Lodge Miami", layout="wide")
 st.title("Dashboard Turístico: Expansión Finca Luna Nueva Lodge Miami")
 st.markdown("Visualización de datos clave para el análisis del mercado turístico y hospedaje en Miami.")
 
-# Ruta al archivo Excel (se asume que el archivo está en data/datos_turisticos.xlsx)
-excel_path = "data/datos_turisticos.xlsx"
+# Ruta a la carpeta donde están los archivos CSV
+folder_path = "data"
 
-# Cargar todas las hojas del Excel
-@st.cache_data
-def load_all_sheets(path):
-    return pd.read_excel(path, sheet_name=None)
+# Listar archivos CSV en la carpeta
+csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
+file_names = [os.path.splitext(f)[0] for f in csv_files]
 
-sheets = load_all_sheets(excel_path)
+if not csv_files:
+    st.error("No se encontraron archivos CSV en la carpeta 'data'.")
+    st.stop()
 
-# Mostrar selector de hoja
-sheet_names = list(sheets.keys())
-selected_sheet = st.selectbox("Selecciona la hoja del Excel:", sheet_names)
+# Seleccionar archivo para mostrar
+selected_file = st.selectbox("Selecciona la tabla que deseas ver:", file_names)
 
-# Mostrar la hoja seleccionada
-st.header(selected_sheet)
-df = sheets[selected_sheet]
+# Mostrar el dataframe seleccionado
+selected_csv = csv_files[file_names.index(selected_file)]
+df = pd.read_csv(os.path.join(folder_path, selected_csv))
+st.header(selected_file)
 st.dataframe(df, use_container_width=True)
 
-# Mostrar todas las hojas (opcional, puedes comentar o eliminar si solo quieres una)
-st.header("Todas las hojas del Excel")
-for sheet in sheet_names:
-    st.subheader(sheet)
-    st.dataframe(sheets[sheet], use_container_width=True)
+# Opcional: Mostrar todas las tablas
+st.header("Todas las tablas disponibles")
+for file_name, csv_file in zip(file_names, csv_files):
+    st.subheader(file_name)
+    st.dataframe(pd.read_csv(os.path.join(folder_path, csv_file

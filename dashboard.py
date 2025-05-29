@@ -5,7 +5,6 @@ st.set_page_config(page_title="Dashboard Turístico Finca Luna Nueva Lodge Miami
 st.title("Dashboard Turístico: Expansión Finca Luna Nueva Lodge Miami")
 st.markdown("Visualización de datos clave para el análisis del mercado turístico y hospedaje en Miami.")
 
-# Lista de archivos CSV y sus títulos
 archivos = {
     "Demografía y Mercado": "Datos-Demograficos-y-de-Mercado-de-Miami.csv",
     "Turismo y Hospedaje": "Turismo-y-Hospedaje-en-Miami.csv",
